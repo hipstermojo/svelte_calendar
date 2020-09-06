@@ -31,15 +31,16 @@
   $: {
     const firstDayOfTheMonthWeekday = getWeekday(currentMonthDays[0].date);
     const previousMonth = dayjs(`${year}-${month}-01`).subtract(1, "month");
-    const previousMonthLastMondayDayOfMonth = dayjs(currentMonthDays[0].date)
-      .subtract(firstDayOfTheMonthWeekday - 1, "day")
-      .date();
 
     // Cover first day of the month being sunday
-    firstDayOfTheMonthWeekday === 0;
     const visibleNumberOfDaysFromPreviousMonth = firstDayOfTheMonthWeekday
       ? firstDayOfTheMonthWeekday - 1
       : 6;
+
+    const previousMonthLastMondayDayOfMonth = dayjs(currentMonthDays[0].date)
+      .subtract(visibleNumberOfDaysFromPreviousMonth, "day")
+      .date();
+
     previousMonthDays = [...Array(visibleNumberOfDaysFromPreviousMonth)].map(
       (day, index) => {
         return {
@@ -89,7 +90,7 @@
   </div>
   <CalendarWeekdays />
   <ol class="days-grid">
-    {#each days as day}
+    {#each days as day (day.date)}
       <CalendarMonthDayItem
         day={dayjs(day.date)}
         isToday={day.date === today} />
