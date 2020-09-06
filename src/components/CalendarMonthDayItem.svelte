@@ -8,9 +8,33 @@
   $: label = day.format("D");
 </script>
 
-<li
+<style>
+  .calendar-day {
+    padding: 0.5em;
+    height: 50px;
+  }
+
+  .calendar-day:hover {
+    background-color: #e2e8f0;
+  }
+  .calendar-day--not-current {
+    background-color: #edf2f7;
+    color: #718096;
+  }
+  .calendar-day--not-current:hover {
+    background-color: #cbd5e0;
+  }
+  .calendar-day--today {
+    background: #ffbd2a;
+  }
+  .calendar-day--today:hover {
+    background: #f5a700;
+  }
+</style>
+
+<div
   class="calendar-day"
   class:calendar-day--not-current={!isCurrentMonth}
   class:calendar-day--today={isToday}>
   <span>{label}</span>
-</li>
+</div>

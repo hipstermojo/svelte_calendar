@@ -80,6 +80,26 @@
   $: days = [...previousMonthDays, ...currentMonthDays, ...nextMonthDays];
 </script>
 
+<style>
+  .calendar-month {
+    width: 70%;
+    margin: auto;
+  }
+  .calendar-month-header {
+    display: flex;
+    padding: 1em;
+    background: #1a4b76;
+    color: white;
+    justify-content: space-between;
+  }
+
+  .days-grid {
+    display: grid;
+    padding: 0.5em 0;
+    grid-template-columns: repeat(7, 1fr);
+  }
+</style>
+
 <div class="calendar-month">
   <div class="calendar-month-header">
     <CalendarDateIndicator {selectedDate} />
@@ -89,11 +109,12 @@
       currentDate={today} />
   </div>
   <CalendarWeekdays />
-  <ol class="days-grid">
+  <div class="days-grid">
     {#each days as day (day.date)}
       <CalendarMonthDayItem
         day={dayjs(day.date)}
+        isCurrentMonth={day.isCurrentMonth}
         isToday={day.date === today} />
     {/each}
-  </ol>
+  </div>
 </div>

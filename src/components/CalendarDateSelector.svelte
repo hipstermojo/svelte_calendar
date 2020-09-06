@@ -21,6 +21,15 @@
   };
 </script>
 
+<style>
+  span {
+    padding: 0.25em;
+  }
+  span:hover {
+    cursor: pointer;
+  }
+</style>
+
 <div class="calendar-date-selector">
   <span on:click={selectPrevious}> &lt; </span>
   <span on:click={selectCurrent}>Today</span>
