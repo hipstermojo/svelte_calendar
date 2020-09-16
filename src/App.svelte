@@ -1,10 +1,10 @@
 <script lang="ts">
+  import Tailwind from "./style/Tailwind.svelte";
   import CalendarMonth from "./components/CalendarMonth.svelte";
 </script>
 
 <style>
   #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -16,7 +16,8 @@
   }
 </style>
 
-<main>
-  <h1>Calendar component</h1>
+<main class="font-body">
+  <Tailwind />
+  <h1 class="text-2xl font-bold py-2">Calendar component</h1>
   <CalendarMonth />
 </main>

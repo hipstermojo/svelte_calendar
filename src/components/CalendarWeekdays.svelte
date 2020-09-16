@@ -3,18 +3,10 @@
 </script>
 
 <style>
-  .day-of-week {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-  }
-  .day-of-week > p {
-    padding: 0 0.5em;
-    font-weight: bold;
-  }
 </style>
 
-<div class="day-of-week">
+<div class="day-of-week grid grid-cols-7">
   {#each WEEKDAYS as weekday}
-    <p>{weekday}</p>
+    <p class="py-1 text-lg font-bold">{weekday}</p>
   {/each}
 </div>

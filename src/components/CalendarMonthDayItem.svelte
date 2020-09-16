@@ -9,11 +9,6 @@
 </script>
 
 <style>
-  .calendar-day {
-    padding: 0.5em;
-    height: 50px;
-  }
-
   .calendar-day:hover {
     background-color: #e2e8f0;
   }
@@ -33,7 +28,7 @@
 </style>
 
 <div
-  class="calendar-day"
+  class="calendar-day p-1 h-24"
   class:calendar-day--not-current={!isCurrentMonth}
   class:calendar-day--today={isToday}>
   <span>{label}</span>

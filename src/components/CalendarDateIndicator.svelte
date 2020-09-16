@@ -5,4 +5,6 @@
   $: selectedMonth = selectedDate.format("MMMM YYYY");
 </script>
 
-<div class="calendar-date-indicator">{selectedMonth}</div>
+<div class="calendar-date-indicator flex items-center justify-center text-xl">
+  {selectedMonth}
+</div>

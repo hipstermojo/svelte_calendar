@@ -21,17 +21,29 @@
   };
 </script>
 
-<style>
-  span {
-    padding: 0.25em;
-  }
-  span:hover {
-    cursor: pointer;
-  }
-</style>
-
-<div class="calendar-date-selector">
-  <span on:click={selectPrevious}> &lt; </span>
-  <span on:click={selectCurrent}>Today</span>
-  <span on:click={selectNext}> &gt;</span>
+<div class="calendar-date-selector flex justify-center items-center">
+  <span on:click={selectPrevious} class="p-2 cursor-pointer">
+    <svg
+      class="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"><path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="3"
+        d="M15 19l-7-7 7-7" /></svg>
+  </span>
+  <span on:click={selectCurrent} class="text-xl cursor-pointer">Today</span>
+  <span on:click={selectNext} class="p-2 cursor-pointer">
+    <svg
+      class="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"><path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="3"
+        d="M9 5l7 7-7 7" /></svg></span>
 </div>
