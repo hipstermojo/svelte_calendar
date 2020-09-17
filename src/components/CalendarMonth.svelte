@@ -13,7 +13,7 @@
   let selectedDate: Dayjs = dayjs();
   let today: string = dayjs().format("YYYY-MM-DD");
 
-  const getWeekday = (date) => dayjs(date).weekday();
+  const getWeekday = (date: string) => dayjs(date).weekday();
 
   $: month = Number(selectedDate.format("M"));
   $: year = Number(selectedDate.format("YYYY"));
@@ -81,7 +81,9 @@
 <div class="calendar-month w-2/3 m-auto">
   <CalendarHeader bind:selectedDate />
   <CalendarWeekdays />
-  <div class="days-grid grid grid-cols-7 border-r-2 border-t-2 border-gray-400">
+  <div
+    class="days-grid grid grid-cols-7 border-gray-400 md:border-r-2
+      md:border-t-2">
     {#each days as day (day.date)}
       <CalendarMonthDayItem
         day={dayjs(day.date)}
