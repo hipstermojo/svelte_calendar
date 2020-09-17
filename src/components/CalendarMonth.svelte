@@ -3,8 +3,7 @@
   import weekday from "dayjs/plugin/weekday";
   import weekOfYear from "dayjs/plugin/weekOfYear";
 
-  import CalendarDateIndicator from "./CalendarDateIndicator.svelte";
-  import CalendarDateSelector from "./CalendarDateSelector.svelte";
+  import CalendarHeader from "./CalendarHeader.svelte";
   import CalendarWeekdays from "./CalendarWeekdays.svelte";
   import CalendarMonthDayItem from "./CalendarMonthDayItem.svelte";
 
@@ -14,7 +13,6 @@
   let selectedDate: Dayjs = dayjs();
   let today: string = dayjs().format("YYYY-MM-DD");
 
-  const selectDate = ({ detail: { date } }) => (selectedDate = date);
   const getWeekday = (date) => dayjs(date).weekday();
 
   $: month = Number(selectedDate.format("M"));
@@ -80,15 +78,8 @@
   $: days = [...previousMonthDays, ...currentMonthDays, ...nextMonthDays];
 </script>
 
-<div class="calendar-month w-3/4 m-auto">
-  <div
-    class="calendar-month-header p-4 flex bg-blue-900 text-white justify-between">
-    <CalendarDateIndicator {selectedDate} />
-    <CalendarDateSelector
-      on:newDate={selectDate}
-      {selectedDate}
-      currentDate={today} />
-  </div>
+<div class="calendar-month w-2/3 m-auto">
+  <CalendarHeader bind:selectedDate />
   <CalendarWeekdays />
   <div class="days-grid grid grid-cols-7">
     {#each days as day (day.date)}
