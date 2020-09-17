@@ -11,6 +11,9 @@ module.exports = {
     extend: {
       colors: {
         'bright-yellow': '#ffbd2a'
+      },
+      height: {
+        102: '28rem'
       }
     },
   },

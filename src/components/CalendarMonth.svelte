@@ -6,12 +6,13 @@
   import CalendarHeader from "./CalendarHeader.svelte";
   import CalendarWeekdays from "./CalendarWeekdays.svelte";
   import CalendarMonthDayItem from "./CalendarMonthDayItem.svelte";
+  import CalendarWeek from "./CalendarWeek.svelte";
+  import { tab } from "../stores";
 
   dayjs.extend(weekday);
   dayjs.extend(weekOfYear);
 
   let selectedDate: Dayjs = dayjs();
-  let today: string = dayjs().format("YYYY-MM-DD");
 
   const getWeekday = (date: string) => dayjs(date).weekday();
 
@@ -80,15 +81,20 @@
 
 <div class="calendar-month w-2/3 m-auto">
   <CalendarHeader bind:selectedDate />
-  <CalendarWeekdays />
-  <div
-    class="days-grid grid grid-cols-7 border-gray-400 md:border-r-2
-      md:border-t-2">
-    {#each days as day (day.date)}
-      <CalendarMonthDayItem
-        day={dayjs(day.date)}
-        isCurrentMonth={day.isCurrentMonth}
-        isToday={day.date === today} />
-    {/each}
-  </div>
+  {#if $tab == 'month'}
+    <CalendarWeekdays />
+    <div
+      class="days-grid grid grid-cols-7 border-gray-400 md:border-r-2
+        md:border-t-2">
+      {#each days as day (day.date)}
+        <CalendarMonthDayItem
+          day={dayjs(day.date)}
+          isCurrentMonth={day.isCurrentMonth} />
+      {/each}
+    </div>
+  {:else if $tab == 'week'}
+    <CalendarWeek {selectedDate} />
+  {:else if $tab == 'day'}
+    <p>G'day guv'nor</p>
+  {/if}
 </div>

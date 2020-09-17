@@ -1,10 +1,12 @@
 <script lang="ts">
   import dayjs, { Dayjs } from "dayjs";
+  import { tab } from "../stores";
+
   export let selectedDate: Dayjs;
 
   const today = dayjs();
   const toggleMonth = (step: number) =>
-    (selectedDate = selectedDate.add(step, "month"));
+    (selectedDate = selectedDate.add(step, $tab));
 
   const toggleToday = () => (selectedDate = today);
 
@@ -78,9 +80,9 @@
     <div
       class="flex w-56 px-4 py-1 border-2 rounded-lg border-gray-600
         justify-between">
-      <p>Day</p>
-      <p>Week</p>
-      <p>Month</p>
+      <p class="cursor-pointer" on:click={() => ($tab = 'day')}>Day</p>
+      <p class="cursor-pointer" on:click={() => ($tab = 'week')}>Week</p>
+      <p class="cursor-pointer" on:click={() => ($tab = 'month')}>Month</p>
     </div>
   </div>
 </div>

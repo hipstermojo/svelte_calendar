@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { Dayjs } from "dayjs";
+  import { today } from "../stores";
 
   export let day: Dayjs;
   export let isCurrentMonth: boolean = false;
-  export let isToday: boolean = false;
+  let isToday: boolean = day.format("YYYY-MM-DD") == $today;
 
   $: label = day.format("D");
 </script>
