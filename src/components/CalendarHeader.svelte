@@ -3,7 +3,7 @@
   export let selectedDate: Dayjs;
 
   const today = dayjs();
-  const toggleMonth = (step) =>
+  const toggleMonth = (step: number) =>
     (selectedDate = selectedDate.add(step, "month"));
 
   const toggleToday = () => (selectedDate = today);
@@ -18,14 +18,13 @@
     - The month currently being rendered
     - Controls to go forward and backward
         - A button specifically to take you back to the current month -->
-<div class="flex bg-blue-900 text-white p-4">
+<div class="flex bg-blue-900 text-white p-4 justify-between">
   <!-- One div contains the month currently being rendered
         as well as controls to go forward and backward-->
-  <div class="w-2/3 flex items-center">
-    <p class="mr-6 font-bold text-xl tracking-wider">{selectedMonth}</p>
+  <div class="w-64 flex justify-between items-center">
     <svg
       on:click={() => toggleMonth(-1)}
-      class="w-4 h-4 cursor-pointer mr-3"
+      class="w-4 h-4 cursor-pointer"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -34,6 +33,7 @@
         stroke-linejoin="round"
         stroke-width="3"
         d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+    <p class="font-bold text-xl tracking-wider">{selectedMonth}</p>
     <svg
       on:click={() => toggleMonth(1)}
       class="w-4 h-4 cursor-pointer"

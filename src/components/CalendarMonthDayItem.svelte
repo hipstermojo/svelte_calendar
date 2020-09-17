@@ -22,14 +22,12 @@
   .calendar-day--today {
     background: #ffbd2a;
   }
-  .calendar-day--today:hover {
-    background: #f5a700;
-  }
 </style>
 
 <div
-  class="calendar-day p-1 h-24"
-  class:calendar-day--not-current={!isCurrentMonth}
-  class:calendar-day--today={isToday}>
-  <span>{label}</span>
+  class="calendar-day p-1 h-24 border-l-2 border-b-2 border-gray-400"
+  class:calendar-day--not-current={!isCurrentMonth}>
+  <span
+    class="rounded-full px-2 py-1"
+    class:calendar-day--today={isToday}>{label}</span>
 </div>

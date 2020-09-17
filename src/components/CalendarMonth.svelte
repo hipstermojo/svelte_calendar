@@ -81,7 +81,7 @@
 <div class="calendar-month w-2/3 m-auto">
   <CalendarHeader bind:selectedDate />
   <CalendarWeekdays />
-  <div class="days-grid grid grid-cols-7">
+  <div class="days-grid grid grid-cols-7 border-r-2 border-t-2 border-gray-400">
     {#each days as day (day.date)}
       <CalendarMonthDayItem
         day={dayjs(day.date)}
