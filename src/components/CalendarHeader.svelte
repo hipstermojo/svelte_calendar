@@ -5,7 +5,7 @@
   export let selectedDate: Dayjs;
 
   const today = dayjs();
-  const toggleMonth = (step: number) =>
+  const toggleDate = (step: number) =>
     (selectedDate = selectedDate.add(step, $tab));
 
   const toggleToday = () => (selectedDate = today);
@@ -25,7 +25,7 @@
         as well as controls to go forward and backward-->
   <div class="w-full md:w-64 flex justify-between items-center">
     <svg
-      on:click={() => toggleMonth(-1)}
+      on:click={() => toggleDate(-1)}
       class="hidden md:block w-4 h-4 cursor-pointer"
       fill="none"
       stroke="currentColor"
@@ -39,7 +39,7 @@
       {selectedMonth}
     </p>
     <svg
-      on:click={() => toggleMonth(-1)}
+      on:click={() => toggleDate(-1)}
       class="block md:hidden w-4 h-4 cursor-pointer"
       fill="none"
       stroke="currentColor"
@@ -61,7 +61,7 @@
         stroke-width="2"
         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
     <svg
-      on:click={() => toggleMonth(1)}
+      on:click={() => toggleDate(1)}
       class="w-4 h-4 cursor-pointer"
       fill="none"
       stroke="currentColor"

@@ -2,17 +2,8 @@
   import { today } from "../stores";
   import dayjs, { Dayjs } from "dayjs";
   import weekday from "dayjs/plugin/weekday";
+  import type { formats } from "dayjs/locale/*";
   dayjs.extend(weekday);
-
-  const WEEKDAYS = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
 
   export let selectedDate: Dayjs;
 
@@ -20,9 +11,9 @@
   $: {
     const selectedWeekday: number = selectedDate.weekday();
     const mondayThisWeek =
-      selectedWeekday == 1
-        ? selectedDate
-        : selectedDate.subtract(7 - selectedWeekday, "day");
+      selectedWeekday == 0
+        ? selectedDate.subtract(6, "day") // if the weekday is a Sunday, go back to the previous Monday
+        : selectedDate.subtract(selectedWeekday - 1, "day");
     dates = dates.fill(null).map((_, i) => mondayThisWeek.add(i, "day"));
   }
 </script>
@@ -52,16 +43,16 @@
           stroke-width="2"
           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
     </div>
-    {#each WEEKDAYS as day, i}
+    {#each dates as date (date.format('YYYY-MM-DD'))}
       <div
         class="flex-1 flex flex-col justify-center bg-gray-400 h-full"
-        class:today={dates[i].format('YYYY-MM-DD') == $today}>
-        <p class="text-center text-2xl font-bold">{dates[i].format('DD')}</p>
-        <p class="text-center uppercase">{day}</p>
+        class:today={date.format('YYYY-MM-DD') == $today}>
+        <p class="text-center text-2xl font-bold">{date.format('DD')}</p>
+        <p class="text-center uppercase">{date.format('dddd')}</p>
       </div>
     {/each}
   </div>
-  <div class="parent grid h-102 border-r-2 border-gray-400 overflow-y-scroll">
+  <div class="parent grid h-102 border-gray-400 overflow-y-scroll">
     {#each { length: 24 * 8 } as _, i}
       {#if i % 8 == 0}
         <div class="border-gray-400 h-20">
@@ -72,7 +63,7 @@
           </p>
         </div>
       {:else}
-        <div class="border-l-2 border-b-2 border-gray-400 h-20" />
+        <div class="border-b-2 border-gray-400 h-20" />
       {/if}
     {/each}
   </div>
