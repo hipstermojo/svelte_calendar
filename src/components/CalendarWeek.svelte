@@ -1,9 +1,7 @@
 <script lang="ts">
   import { today } from "../stores";
-  import dayjs, { Dayjs } from "dayjs";
-  import weekday from "dayjs/plugin/weekday";
+  import type { Dayjs } from "dayjs";
   import type { formats } from "dayjs/locale/*";
-  dayjs.extend(weekday);
 
   export let selectedDate: Dayjs;
 

@@ -5,15 +5,43 @@
   export let selectedDate: Dayjs;
 
   const today = dayjs();
+  const renderFormat = {
+    day: "dddd D, MMMM YYYY",
+    month: "MMMM YYYY",
+  };
+
   const toggleDate = (step: number) =>
     (selectedDate = selectedDate.add(step, $tab));
 
   const toggleToday = () => (selectedDate = today);
 
-  $: selectedMonth = selectedDate.format("MMMM YYYY");
+  $: renderDate = (): string => {
+    if ($tab == "week") {
+      const weekday: number = selectedDate.weekday();
+      // Refactor into util function
+      const mondayThisWeek: Dayjs =
+        weekday == 0
+          ? selectedDate.subtract(6, "day")
+          : selectedDate.subtract(weekday - 1, "day");
+      const sundayThisWeek: Dayjs = mondayThisWeek.add(6, "day");
+      const isSameMonth = mondayThisWeek.month() == sundayThisWeek.month();
+      return `${mondayThisWeek.format("MMMM")} ${mondayThisWeek.format(
+        "DD"
+      )} - ${
+        isSameMonth ? "" : sundayThisWeek.format("MMMM")
+      } ${sundayThisWeek.format("DD")}, ${sundayThisWeek.format("YYYY")}`;
+    } else {
+      return selectedDate.format(renderFormat[$tab]);
+    }
+  };
 </script>
 
 <style>
+  @screen md {
+    .expanded-view {
+      @apply w-1/2;
+    }
+  }
 </style>
 
 <!-- This component displays 2 things:
@@ -23,7 +51,9 @@
 <div class="bg-blue-900 text-white p-4 md:flex md:justify-between">
   <!-- One div contains the month currently being rendered
         as well as controls to go forward and backward-->
-  <div class="w-full md:w-64 flex justify-between items-center">
+  <div
+    class="w-full md:w-64 flex justify-between items-center"
+    class:expanded-view={$tab != 'month'}>
     <svg
       on:click={() => toggleDate(-1)}
       class="hidden md:block w-4 h-4 cursor-pointer"
@@ -36,7 +66,7 @@
         stroke-width="3"
         d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
     <p class="w-1/2 font-bold tracking-wider md:w-auto md:text-xl">
-      {selectedMonth}
+      {renderDate()}
     </p>
     <svg
       on:click={() => toggleDate(-1)}

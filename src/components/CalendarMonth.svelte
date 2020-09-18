@@ -8,6 +8,7 @@
   import CalendarMonthDayItem from "./CalendarMonthDayItem.svelte";
   import CalendarWeek from "./CalendarWeek.svelte";
   import { tab } from "../stores";
+  import CalendarDay from "./CalendarDay.svelte";
 
   dayjs.extend(weekday);
   dayjs.extend(weekOfYear);
@@ -95,6 +96,6 @@
   {:else if $tab == 'week'}
     <CalendarWeek {selectedDate} />
   {:else if $tab == 'day'}
-    <p>G'day guv'nor</p>
+    <CalendarDay />
   {/if}
 </div>
