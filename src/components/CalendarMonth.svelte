@@ -1,5 +1,5 @@
 <script lang="ts">
-  import dayjs, { Dayjs } from "dayjs";
+  import dayjs from "dayjs";
   import weekday from "dayjs/plugin/weekday";
   import weekOfYear from "dayjs/plugin/weekOfYear";
 
@@ -7,19 +7,17 @@
   import CalendarWeekdays from "./CalendarWeekdays.svelte";
   import CalendarMonthDayItem from "./CalendarMonthDayItem.svelte";
   import CalendarWeek from "./CalendarWeek.svelte";
-  import { tab } from "../stores";
+  import { tab, selectedDate } from "../stores";
   import CalendarDay from "./CalendarDay.svelte";
 
   dayjs.extend(weekday);
   dayjs.extend(weekOfYear);
 
-  let selectedDate: Dayjs = dayjs();
-
   const getWeekday = (date: string) => dayjs(date).weekday();
 
-  $: month = Number(selectedDate.format("M"));
-  $: year = Number(selectedDate.format("YYYY"));
-  $: numberOfDaysInMonth = dayjs(selectedDate).daysInMonth();
+  $: month = Number($selectedDate.format("M"));
+  $: year = Number($selectedDate.format("YYYY"));
+  $: numberOfDaysInMonth = dayjs($selectedDate).daysInMonth();
   $: currentMonthDays = [...Array(numberOfDaysInMonth)].map((day, index) => {
     return {
       date: dayjs(`${year}-${month}-${index + 1}`).format("YYYY-MM-DD"),
@@ -81,7 +79,7 @@
 </script>
 
 <div class="calendar-month w-2/3 m-auto">
-  <CalendarHeader bind:selectedDate />
+  <CalendarHeader />
   {#if $tab == 'month'}
     <CalendarWeekdays />
     <div
@@ -94,7 +92,7 @@
       {/each}
     </div>
   {:else if $tab == 'week'}
-    <CalendarWeek {selectedDate} />
+    <CalendarWeek />
   {:else if $tab == 'day'}
     <CalendarDay />
   {/if}

@@ -1,8 +1,6 @@
 <script lang="ts">
   import dayjs, { Dayjs } from "dayjs";
-  import { tab } from "../stores";
-
-  export let selectedDate: Dayjs;
+  import { tab, selectedDate } from "../stores";
 
   const today = dayjs();
   const renderFormat = {
@@ -11,18 +9,18 @@
   };
 
   const toggleDate = (step: number) =>
-    (selectedDate = selectedDate.add(step, $tab));
+    ($selectedDate = $selectedDate.add(step, $tab));
 
-  const toggleToday = () => (selectedDate = today);
+  const toggleToday = () => ($selectedDate = today);
 
   $: renderDate = (): string => {
     if ($tab == "week") {
-      const weekday: number = selectedDate.weekday();
+      const weekday: number = $selectedDate.weekday();
       // Refactor into util function
       const mondayThisWeek: Dayjs =
         weekday == 0
-          ? selectedDate.subtract(6, "day")
-          : selectedDate.subtract(weekday - 1, "day");
+          ? $selectedDate.subtract(6, "day")
+          : $selectedDate.subtract(weekday - 1, "day");
       const sundayThisWeek: Dayjs = mondayThisWeek.add(6, "day");
       const isSameMonth = mondayThisWeek.month() == sundayThisWeek.month();
       return `${mondayThisWeek.format("MMMM")} ${mondayThisWeek.format(
@@ -31,7 +29,7 @@
         isSameMonth ? "" : sundayThisWeek.format("MMMM")
       } ${sundayThisWeek.format("DD")}, ${sundayThisWeek.format("YYYY")}`;
     } else {
-      return selectedDate.format(renderFormat[$tab]);
+      return $selectedDate.format(renderFormat[$tab]);
     }
   };
 </script>

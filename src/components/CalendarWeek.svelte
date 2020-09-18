@@ -1,17 +1,15 @@
 <script lang="ts">
-  import { today } from "../stores";
+  import { today, selectedDate } from "../stores";
   import type { Dayjs } from "dayjs";
   import type { formats } from "dayjs/locale/*";
 
-  export let selectedDate: Dayjs;
-
   let dates: Dayjs[] = Array(7);
   $: {
-    const selectedWeekday: number = selectedDate.weekday();
+    const selectedWeekday: number = $selectedDate.weekday();
     const mondayThisWeek =
       selectedWeekday == 0
-        ? selectedDate.subtract(6, "day") // if the weekday is a Sunday, go back to the previous Monday
-        : selectedDate.subtract(selectedWeekday - 1, "day");
+        ? $selectedDate.subtract(6, "day") // if the weekday is a Sunday, go back to the previous Monday
+        : $selectedDate.subtract(selectedWeekday - 1, "day");
     dates = dates.fill(null).map((_, i) => mondayThisWeek.add(i, "day"));
   }
 </script>
@@ -20,9 +18,6 @@
   .parent {
     display: grid;
     grid-template-columns: 60px repeat(7, 1fr);
-  }
-  .today {
-    @apply text-blue-700;
   }
 </style>
 
@@ -43,8 +38,11 @@
     </div>
     {#each dates as date (date.format('YYYY-MM-DD'))}
       <div
-        class="flex-1 flex flex-col justify-center bg-gray-400 h-full"
-        class:today={date.format('YYYY-MM-DD') == $today}>
+        on:click={() => ($selectedDate = date)}
+        class="flex-1 flex flex-col justify-center bg-gray-400 h-full
+          cursor-pointer"
+        class:text-blue-600={date.format('YYYY-MM-DD') == $selectedDate.format('YYYY-MM-DD')}
+        class:text-bright-yellow={date.format('YYYY-MM-DD') == $today}>
         <p class="text-center text-2xl font-bold">{date.format('DD')}</p>
         <p class="text-center uppercase">{date.format('dddd')}</p>
       </div>
