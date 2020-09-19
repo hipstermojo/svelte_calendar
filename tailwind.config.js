@@ -14,6 +14,11 @@ module.exports = {
       },
       height: {
         102: '28rem'
+      },
+      screens: {
+        'xs': {
+          'max': '639px'
+        }
       }
     },
   },

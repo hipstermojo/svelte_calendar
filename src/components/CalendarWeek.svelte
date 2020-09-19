@@ -52,7 +52,13 @@
         class:text-blue-600={isSelected(date)}
         class:text-bright-yellow={isToday(date)}>
         <p class="text-center md:text-2xl font-bold">{date.format('DD')}</p>
-        <p class="text-center md:uppercase">{date.format('dddd')}</p>
+        <p class="hidden text-center lg:block md:uppercase">
+          {date.format('dddd')}
+        </p>
+        <p class="hidden sm:block lg:hidden text-center">
+          {date.format('ddd')}
+        </p>
+        <p class="xs:block sm:hidden text-center">{date.format('dddd')[0]}</p>
       </div>
     {/each}
   </div>
